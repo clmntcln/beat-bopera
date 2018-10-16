@@ -2,8 +2,8 @@ class Note{
 
     PVector pos;
 
-    Note(PVector origin){
-        pos = origin;
+    Note(float originX, float originY){
+        pos = new PVector(originX, originY);
 
     }
 
@@ -12,10 +12,10 @@ class Note{
         pos.y = y;
     }
 
-    void drawNote(){
+    void draw(){
 
-        ellipse(pos.x, pos.y, 10, 10);
-        fill(255);
+        fill(255, 0, 0);
+        ellipse(pos.x, pos.y, 30, 30);
         
     }
 

@@ -43,7 +43,7 @@ class Parser{
 
     String getCol(String line, int index){
 
-        String[] cols = line.split();
+        String[] cols = line.split("");
 
         return cols[index];
     

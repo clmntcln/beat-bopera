@@ -7,16 +7,15 @@ class BeatTimeline{
 
     int width;
 
-    Note note1;
+    float speed;
 
-    BeatTimeline(int givenId, float x, float y, int givenWidth){
+    BeatTimeline(int givenId, float x, float y, int givenWidth, float givenSpeed){
 
         this.id = givenId;
         this.pos = new PVector(x, y);
         this.width = givenWidth;
         this.spawnPos = new PVector( pos.x + ((float)this.width/2), -40);
-
-        note1 = new Note(spawnPos.x, spawnPos.y);
+        this.speed = givenSpeed;
 
     }
 
@@ -33,8 +32,11 @@ class BeatTimeline{
         line(pos.x + 40, 0, pos.x + 40, height);
         ellipse(spawnPos.x, spawnPos.y, 30, 30);
 
-        note1.setPos(note1.pos.x, note1.pos.y + 1);
-        note1.draw();
+        for(int i = 0; i < notes.size(); i++){
+            Note note = notes.get(i);
+            note.setPos(note.pos.x, note.pos.y + speed);
+            note.draw();
+        }
 
     }
 

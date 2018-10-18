@@ -5,17 +5,17 @@ class Parser{
     String path;
     String[] lines;
 
-    int BPM;
+    float BPM;
 
     Parser(){
         
     }
 
-    void setBPM(int val){
+    void setBPM(float val){
         BPM = val;
     }
 
-    int getBPM(){
+    float getBPM(){
         return BPM;
     }
 
@@ -23,7 +23,7 @@ class Parser{
 
         lines = loadStrings(path);
 
-        setBPM(parseInt(lines[0]));
+        setBPM(parseFloat(lines[0]));
 
     }
 
@@ -35,7 +35,7 @@ class Parser{
 
     }
 
-    String getLines(int index){
+    String getLine(int index){
 
         return lines[index];
 

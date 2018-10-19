@@ -1,6 +1,7 @@
 class Note{
 
     PVector pos;
+    int scoreValue = 10;
 
     Note(float originX, float originY){
         pos = new PVector(originX, originY);

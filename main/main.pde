@@ -1,11 +1,10 @@
-	
 import java.util.Map;
 import processing.sound.*;
 
 ScoreManager scoreManager;
-InputManager inputManager;
 SoundManager soundManager;
 Parser parser;
+Camera camera;
 
 BeatTimeline tl1;
 BeatTimeline tl2;
@@ -19,12 +18,12 @@ float delay = 3;
 
 void setup(){
 
-    size(1024, 720);
+    size(1024, 640);
     frameRate(60);
 
+    camera = new Camera();
     parser = new Parser();
     scoreManager = new ScoreManager();
-    //inputManager = new InputManager();
     soundManager = new SoundManager(this);
 
     soundManager.load("fail", "assets/fail.wav");
@@ -33,8 +32,8 @@ void setup(){
 
     float speed = (height / delay) / 60;
 
-    tl1 = new BeatTimeline(0, width/2, 0, 80, speed, "poum", "assets/poum.wav");
-    tl2 = new BeatTimeline(0, (width/2) + 90, 0, 80, speed, "tchack", "assets/tchack.wav");
+    tl1 = new BeatTimeline(0, (width/2) + 90, 0, 80, speed, "poum", "assets/poum.wav");
+    tl2 = new BeatTimeline(0, (width/2) + 180, 0, 80, speed, "tchack", "assets/tchack.wav");
 
     beatInterval = 60 / parser.getBPM();
 
@@ -73,10 +72,17 @@ void draw(){
   
     background(150);
 
+    pushMatrix();
+
+    camera.draw();
+
     tl1.draw();
     tl2.draw();
 
+    popMatrix();
+
     scoreManager.draw();
+    
 
     Debug();
 

@@ -62,6 +62,7 @@ class BeatTimeline{
                 notes.remove(i);
                 scoreManager.setMultiplier(1);
                 soundManager.playSound("fail");
+                camera.shake();
             } 
         }
     }

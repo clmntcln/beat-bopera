@@ -3,7 +3,7 @@ class Camera{
     boolean shaking = false;
     float shakeTimer = 0;
     //Durée en secondes
-    float shakeDuration = 0.4;
+    float shakeDuration = 0.2;
 
     Camera(){
 

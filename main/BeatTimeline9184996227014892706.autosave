@@ -13,15 +13,7 @@ class BeatTimeline{
 
     String soundName;
 
-    color noteColor;
-
-    PImage playerIdle;
-    PImage playerActive;
-
-    float zoneStart = height - 154;
-    float zoneH = 100;
-
-    BeatTimeline(int givenId, float x, float y, int givenWidth, float givenSpeed, String soundName, String soundPath, color noteColor){
+    BeatTimeline(int givenId, float x, float y, int givenWidth, float givenSpeed, String soundName, String soundPath){
 
         this.id = givenId;
         this.pos = new PVector(x, y);
@@ -29,14 +21,9 @@ class BeatTimeline{
         this.spawnPos = new PVector( pos.x + ((float)this.width/2), -40);
         this.speed = givenSpeed;
 
-        this.noteColor = noteColor;
-
         this.soundName = soundName;
 
         soundManager.load(soundName, soundPath);
-
-        playerIdle = loadImage("assets/sprites/character-idle-ph.png");
-        playerActive = loadImage("assets/sprites/character-active-ph.png");
 
     }
 
@@ -58,11 +45,9 @@ class BeatTimeline{
 
     void drawBackground(){
 
-        fill(255, 255, 255, 150);
+        fill(255);
         rect(pos.x, pos.y, 80, height);
-        stroke(150, 150, 150);
-        strokeWeight(1);
-        line(pos.x + 40, 0, pos.x + 40, height);
+        line(pos.x + 40, 0, pos.x + 40, height);op
 
     }
 
@@ -71,7 +56,7 @@ class BeatTimeline{
         for(int i = 0; i < notes.size(); i++){
             Note note = notes.get(i);
             note.setPos(note.pos.x, note.pos.y + speed);
-            note.draw(noteColor);
+            note.draw();
 
             //if offscreen, remove from array
             if(note.pos.y > height){
@@ -84,42 +69,22 @@ class BeatTimeline{
         
     }
 
-    //Dessiner la zone
     void drawZone(){
 
-        if(inputPressed){
-            image(playerActive, pos.x - 48, height - 162, 162, 162);
-        } else{
-            image(playerIdle, pos.x - 48, height - 162, 162, 162);
-        }
-        
-        strokeWeight(0);
+        fill(130);
 
-        fill(255, 255, 255, 150);
+        if(inputPressed) fill(100);
 
-        //Hitbox
-        // if(inputPressed) fill(255, 255, 255, 200);
-        // rect(pos.x, this.zoneStart, this.width, this.zoneH);
-
-        fill(255, 255, 255, 0);
-
-        if(inputPressed) fill(noteColor, 150);
-
-        strokeWeight(4);
-        stroke(noteColor);
-        ellipse(pos.x + (this.width/2), this.zoneStart + (this.zoneH/2), 40, 40);
-
-        strokeWeight(0);
+        rect(pos.x, height - 90, 80, 80);
 
     }
 
-    //Est-ce qu'une note est dans la zone ?
     void checkForNote(){
 
         for(int i = 0; i < notes.size(); i++){
             Note note = notes.get(i);
             
-            if(note.pos.y > this.zoneStart && note.pos.y < (this.zoneStart + this.zoneH)){
+            if(note.pos.y > height - 90 && note.pos.y < height - 10){
                 notes.remove(i);
                 soundManager.playSound(this.soundName);
                 scoreManager.add(note.scoreValue);
@@ -129,7 +94,6 @@ class BeatTimeline{
 
     }
 
-    //Quand le joueur appuit
     void onInputPressed(){
 
         inputPressed = true;
@@ -138,7 +102,6 @@ class BeatTimeline{
 
     }
 
-    //QUand le joueur relâche
     void onInputReleased(){
 
         inputPressed = false;

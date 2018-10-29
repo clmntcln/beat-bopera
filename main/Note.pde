@@ -13,10 +13,10 @@ class Note{
         pos.y = y;
     }
 
-    void draw(){
+    void draw(color c){
 
-        fill(255, 0, 0);
-        ellipse(pos.x, pos.y, 30, 30);
+        fill(c);
+        ellipse(pos.x, pos.y, 40, 40);
         
     }
 

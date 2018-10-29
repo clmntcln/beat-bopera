@@ -11,10 +11,16 @@ BeatTimeline tl2;
 
 float timeElapsed = 0;
 int beatCounter = 0;
+int noteCounter = 1;
 float beatInterval = 0;
+float noteInterval = 0;
+float beatDivision = 4;
 
 //Temps de délais donné au joueur entre l'apparition de la note et le moment où elle doit être appuyée
-float delay = 3;
+float delay = 1.5;
+
+color c1 = color(225, 30, 44);
+color c2 = color(218, 225, 30);
 
 void setup(){
 
@@ -32,27 +38,31 @@ void setup(){
 
     float speed = (height / delay) / 60;
 
-    tl1 = new BeatTimeline(0, (width/2) + 90, 0, 80, speed, "poum", "assets/poum.wav");
-    tl2 = new BeatTimeline(0, (width/2) + 180, 0, 80, speed, "tchack", "assets/tchack.wav");
+    tl1 = new BeatTimeline(0, (width/2) + 90, 0, 80, speed, "bass_drum", "assets/sounds/bass_drum_1_short.wav", c1);
+    tl2 = new BeatTimeline(0, (width/2) + 220, 0, 80, speed, "snare", "assets/sounds/snare_1_short.wav", c2);
 
     beatInterval = 60 / parser.getBPM();
-
-    // SoundFile music = new SoundFile(this, "assets/music.wav");
-
-    // music.play();
+    noteInterval = beatInterval / beatDivision;
 
 }
 
 void draw(){
 
-    timeElapsed = millis() / 1000.0;
+    timeElapsed = millis() / 1000.0;//Convert to seconds
+
+    // if( beatCounter >= parser.lines.length ){
+    //     println("reset: " + parser.lines.length);
+    //     beatCounter = 1;
+    //     timeElapsed = 0;
+    // }
+
 
     //Si une ligne existe pour le beat actuel dans la partition && que suffisamment de temps s'est écoulé depuis le dernier beat
-    if(beatCounter < parser.lines.length && timeElapsed > (beatCounter * beatInterval)){
+    if(noteCounter < parser.lines.length && timeElapsed > (noteCounter * noteInterval)){
 
         //TODO : Ignorer la première ligne du fichier
 
-        String line = parser.getLine(beatCounter);
+        String line = parser.getLine(noteCounter);
         String col1 = parser.getCol(line, 0);
         String col2 = parser.getCol(line, 1);
 
@@ -64,20 +74,32 @@ void draw(){
             tl2.spawnNote();
         } 
 
-        beatCounter++;
+        noteCounter++;
 
     }
 
+    // if(timeElapsed > (noteCounter * noteInterval)){
+
+    //     tl1.spawnNote();
+
+    //     noteCounter++;
+
+    //     //if(noteCounter % beatDivision)
+
+    //     println(noteCounter % beatDivision);
+
+    // }
+
     clear();
   
-    background(150);
+    background(36, 22, 45);
 
     pushMatrix();
 
     camera.draw();
 
-    tl1.draw();
     tl2.draw();
+    tl1.draw();
 
     popMatrix();
 
@@ -85,12 +107,6 @@ void draw(){
     
 
     Debug();
-
-    //detect input
-    //if a note is inside an input zone (coordinates comparison) delete it, play sound, and add score
-    //else reset score multiplier and play "fail" sound
-
-    //CHECK INPUT
 
 }
 

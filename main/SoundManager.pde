@@ -33,7 +33,7 @@ class SoundManager{
 
         SoundFile sound = soundsList.get(soundName);
 
-        //sound.play();
+        sound.play();
 
     }
 

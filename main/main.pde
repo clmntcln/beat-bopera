@@ -92,7 +92,8 @@ void draw(){
 
     clear();
   
-    background(36, 22, 45);
+    background(155);
+    //background(36, 22, 45);
 
     pushMatrix();
 
@@ -140,4 +141,9 @@ void Debug(){
     //text("Time elapsed:" + timeElapsed, 0, 10);
     //text("Beat Interval:" + beatInterval, 0, 20);
     text("Beat counter:" + beatCounter, 0, height - 30);
+}
+
+boolean IsPowerOfTwo(int x)
+{
+    return (x != 0) && ((x & (x - 1)) == 0);
 }

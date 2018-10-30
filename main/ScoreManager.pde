@@ -1,5 +1,6 @@
 class ScoreManager{
 
+    int chain = 1;
     int multiplier = 1;
     int score = 0;
     int scoreIncrement = 10;
@@ -16,6 +17,10 @@ class ScoreManager{
 
     void setMultiplier(int value){
         this.multiplier = value;
+    }
+
+    void setChain(int value){
+        this.chain = value;
     }
 
     void draw(){

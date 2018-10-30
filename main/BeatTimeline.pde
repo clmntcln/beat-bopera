@@ -1,4 +1,5 @@
 class BeatTimeline{
+
     int id;
     ArrayList<Note> notes = new ArrayList<Note>();
 
@@ -77,9 +78,10 @@ class BeatTimeline{
             if(note.pos.y > height){
                 notes.remove(i);
                 scoreManager.setMultiplier(1);
+                scoreManager.setChain(1);
                 soundManager.playSound("fail");
                 camera.shake();
-            } 
+            }
         }
         
     }
@@ -120,10 +122,13 @@ class BeatTimeline{
             Note note = notes.get(i);
             
             if(note.pos.y > this.zoneStart && note.pos.y < (this.zoneStart + this.zoneH)){
+
                 notes.remove(i);
                 soundManager.playSound(this.soundName);
                 scoreManager.add(note.scoreValue);
-                scoreManager.setMultiplier(scoreManager.multiplier + 1);
+                scoreManager.setChain(scoreManager.chain + 1);
+
+                if(IsPowerOfTwo(scoreManager.chain)) scoreManager.setMultiplier(scoreManager.chain);
             }
         }
 

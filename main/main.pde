@@ -17,6 +17,7 @@ boolean hasgamestarted = false;
   //if hasgamestarted = loadImage("assets/sprites/menuBBO.png");
 
 float timeElapsed = 0;
+float timePaused = 0;
 int beatCounter = 0;
 int noteCounter = 1;
 float beatInterval = 0;
@@ -59,7 +60,12 @@ void setup(){
 void draw(){
 
     //timeElapsed = millis() / 1000.0;//Convert to seconds
-    timeElapsed += 1/60;
+    if(hasgamestarted){
+        timeElapsed = (millis() / 1000.0) - timePaused;
+    } else {
+        timePaused = millis() / 1000.0;
+    }
+    
     //image(ima,0,0);
 
     // if( beatCounter >= parser.lines.length ){
@@ -152,7 +158,7 @@ void Debug(){
 
     fill(255);
 
-    //text("Time elapsed:" + timeElapsed, 0, 10);
+    text("Time elapsed:" + timeElapsed, 10, height - 50);
     //text("Beat Interval:" + beatInterval, 0, 20);
     text("Note counter:" + noteCounter, 10, height - 30);
 }

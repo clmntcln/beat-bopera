@@ -110,7 +110,6 @@ void draw(){
     popMatrix();
 
     scoreManager.draw();
-    
 
     Debug();
 

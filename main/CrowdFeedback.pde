@@ -1,19 +1,28 @@
 class CrowdFeedback{
 
-    String text;
+    String content;
     String soundName;
+    PVector pos = new PVector(300, 300);
+    float dif = -10;
+    float duration = 0;
+    float incr = 0;
 
-    CrowdFeedback(text, soundName){
-        this.text = text;
+    CrowdFeedback(String content, String soundName, float duration){
+
+        this.content = content;
         this.soundName = soundName;
+        this.incr = this.dif / duration / 60;
 
         soundManager.playSound(soundName);
-        //Load sound
-        //Play sound
+        
     }
 
     void draw(){
-        //Draw text
+
+        pos.y += this.incr;
+
+        text(this.content, this.pos.x, this.pos.y);
+
     }
 
 }

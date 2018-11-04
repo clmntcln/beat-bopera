@@ -19,7 +19,7 @@ class CrowdFeedback{
 
     void draw(){
 
-        pos.y += this.incr;
+        //pos.y += this.incr;
 
         text(this.content, this.pos.x, this.pos.y);
 

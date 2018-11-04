@@ -1,72 +1,91 @@
 class Graphism{
   
-  PImage scene;
-  PImage rang9;
-  PImage rang8;
-  PImage rang7;
-  PImage rang6;
-  PImage rang5;
-  PImage rang4;
-  PImage rang3;
-  PImage rang2;
-  PImage rang1;
+	CrowdRow[] rows = new CrowdRow[9];
+
+    ArrayList<CrowdFeedback> crowdFeedbacks = new ArrayList<CrowdFeedback>();
+
+    float theta = 0;
   
-  Graphism(){
+    Graphism(){
+
+        for(int i = 0; i < 9; i++){
+        rows[i] = new CrowdRow("assets/sprites/public/" + (i + 1) + ".png");
+        }
     
-    scene = loadImage("assets/sprites/scene.jpg");
-    rang9 = loadImage("assets/sprites/public/9.png");
-    rang8 = loadImage("assets/sprites/public/8.png");
-    rang7 = loadImage("assets/sprites/public/7.png");
-    rang6 = loadImage("assets/sprites/public/6.png");
-    rang5 = loadImage("assets/sprites/public/5.png");
-    rang4 = loadImage("assets/sprites/public/4.png");
-    rang3 = loadImage("assets/sprites/public/3.png");
-    rang2 = loadImage("assets/sprites/public/2.png");
-    rang1 = loadImage("assets/sprites/public/1.png");
+        scene = loadImage("assets/sprites/scene.jpg");
     
-    
-  }
+    }
   
-  void draw(){
+    void draw(){
+
+        theta += 0.02;
     
-    image(scene, 0, 0);
-    
-    if(scoreManager.multiplier < 7){
-    image(rang9, 0, 0);
-    }else{
-      image(rang9, 0, sin(frameCount));
+        image(scene, 0, 0);
+
+        if(scoreManager.multiplier < 7) {
+            
+        } else {
+            for(int i = this.rows.length; i > 0; i--){
+                this.rows[i - 1].pos.y = 0;
+            }
+        }
+
+        for(int i = this.rows.length; i > 0; i--){
+        this.rows[i - 1].draw();
+        }
+        
+        // if(scoreManager.multiplier < 7){
+        //   image(rang9, 0, 0);
+        // }else{
+        //   image(rang9, 0, sin(theta) * 10);
+        // }
+        
+        // image(rang8, 0, 0);
+        
+        // if(scoreManager.multiplier < 7){
+        //   image(rang7, 0, 0);
+        // }else{
+        //   image(rang7, 0, sin(theta) * 10);
+        // }
+        
+        // image(rang6, 0, 0);
+        
+        // if(scoreManager.multiplier < 7){
+        //   image(rang5, 0, 0);
+        // }else{
+        //   image(rang5, 0, sin(theta) * 10);
+        // }
+        
+        // image(rang4, 0, 0);
+        
+        // if(scoreManager.multiplier < 7){
+        //   image(rang3, 0, 0);
+        // }else{
+        //   image(rang3, 0, sin(theta) * 10);
+        // }
+        
+        // image(rang2, 0, 0);
+        
+        // if(scoreManager.multiplier < 7){
+        //   image(rang1, 0, 0);
+        // }else{
+        //   image(rang1, 0, sin(theta) * 10);
+        // }
     }
-    
-    image(rang8, 0, 0);
-    
-    if(scoreManager.multiplier < 7){
-    image(rang7, 0, 0);
-    }else{
-      image(rang7, 0, sin(frameCount));
+}
+
+
+class CrowdRow{
+
+    PVector pos = new PVector(0, 0);
+    PImage src;
+
+    CrowdRow(String srcPath){
+        this.src = loadImage(srcPath);
     }
-    
-    image(rang6, 0, 0);
-    
-    if(scoreManager.multiplier < 7){
-    image(rang5, 0, 0);
-    }else{
-      image(rang5, 0, sin(frameCount));
+
+    void draw(){
+        image(this.src, pos.x, pos.y);
     }
-      
-    image(rang4, 0, 0);
-    
-    if(scoreManager.multiplier < 7){
-    image(rang3, 0, 0);
-    }else{
-      image(rang3, 0, sin(frameCount));
-    }
-    
-    image(rang2, 0, 0);
-    
-    if(scoreManager.multiplier < 7){
-    image(rang1, 0, 0);
-    }else{
-      image(rang1, 0, sin(frameCount));
-    }
-  }
+
 }

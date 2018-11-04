@@ -143,7 +143,7 @@ class BeatTimeline{
 
     }
 
-    //QUand le joueur relâche
+    //Quand le joueur relâche
     void onInputReleased(){
 
         inputPressed = false;

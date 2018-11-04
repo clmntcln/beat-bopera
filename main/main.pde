@@ -35,7 +35,6 @@ void setup(){
     frameRate(60);
     //ima = loadImage("assets/sprites/scene.jpg");
 
-
     camera = new Camera();
     parser = new Parser();
     graphism = new Graphism();
@@ -129,7 +128,7 @@ void draw(){
     
     if(hasgamestarted == false) image(menu,0,0);
 
-    Debug();
+    //Debug();
 
 
 }

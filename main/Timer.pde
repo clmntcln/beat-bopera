@@ -25,9 +25,9 @@ class Timer{
 
             if(this.counter > this.duration){
                 
-                    this.active = false;   
-                    this.counter = 0;
-                    this.onEnded();
+                this.active = false;   
+                this.counter = 0;
+                this.onEnded();
 
             }
 

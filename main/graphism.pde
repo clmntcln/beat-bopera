@@ -1,4 +1,6 @@
 class Graphism{
+
+    PImage scene;
   
 	CrowdRow[] rows = new CrowdRow[9];
 

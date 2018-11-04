@@ -8,13 +8,14 @@ Camera camera;
 Graphism graphism;
 //PImage ima;
 PImage menu;
+//PImage bravo;
+//PImage fail;
 
 
 BeatTimeline tl1;
 BeatTimeline tl2;
 
 boolean hasgamestarted = false;
-  //if hasgamestarted = loadImage("assets/sprites/menuBBO.png");
 
 float timeElapsed = 0;
 int beatCounter = 0;
@@ -41,6 +42,7 @@ void setup(){
     graphism = new Graphism();
     scoreManager = new ScoreManager();
     soundManager = new SoundManager(this);
+
     
     soundManager.load("intro", "assets/sounds/intro.wav");
     soundManager.load("fail", "assets/sounds/fail.wav");
@@ -50,6 +52,7 @@ void setup(){
     soundManager.load("outro", "assets/sounds/yeay.wav");
     
     
+
     
     parser.loadSheet("assets/sheet.txt");
 
@@ -61,6 +64,9 @@ void setup(){
     beatInterval = 60 / parser.getBPM();
     noteInterval = beatInterval / beatDivision;
 
+menu = loadImage("assets/sprites/menuBBO.png");
+//bravo = loadImage ("assets/sprites/Bravo.png");
+//fail = loadImage ("assets/sprites/fail.png");
 }
 
 void draw(){
@@ -127,8 +133,11 @@ void draw(){
     popMatrix();
 
     scoreManager.draw();
+    
+    if(hasgamestarted == false) image(menu,0,0);
 
     Debug();
+
 
 }
 
@@ -154,6 +163,9 @@ void keyReleased(){
     }
 
 }
+
+//if(score < 400 && timehasended) image(fail,0,0);
+//if(score > 400 && timehasended) image(bravo,0,0);
 
 void Debug(){
 

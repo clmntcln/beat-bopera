@@ -3,11 +3,13 @@ class Timer{
     boolean active;
     float counter = 0;
     float duration = 0;
+    Callback onEnded;
 
-    Timer(float d, boolean auto){
+    Timer(float d, boolean auto, Callback onEnded){
 
         this.active = auto;
         this.duration = d;
+        this.onEnded = onEnded;
 
         if(auto) start();
 
@@ -27,15 +29,11 @@ class Timer{
                 
                 this.active = false;   
                 this.counter = 0;
-                this.onEnded();
+                this.onEnded.call();
 
             }
 
         }
-
-    }
-
-    void onEnded(){
 
     }
 

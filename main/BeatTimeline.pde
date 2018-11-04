@@ -128,7 +128,7 @@ class BeatTimeline{
                 scoreManager.add(note.scoreValue);
                 scoreManager.setChain(scoreManager.chain + 1);
 
-                if(IsPowerOfTwo(scoreManager.chain)) scoreManager.setMultiplier(scoreManager.chain);
+                scoreManager.checkChain();
             }
         }
 

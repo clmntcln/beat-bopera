@@ -1,3 +1,7 @@
+interface Callback
+{
+  void call();
+}
 
 boolean IsPowerOfTwo(int x)
 {

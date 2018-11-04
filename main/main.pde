@@ -5,17 +5,14 @@ ScoreManager scoreManager;
 SoundManager soundManager;
 Parser parser;
 Camera camera;
-Graphism graphism;
-//PImage ima;
-PImage menu;
-//PImage bravo;
-//PImage fail;
-
+Background background;
+Menus menus;
 
 BeatTimeline tl1;
 BeatTimeline tl2;
 
-boolean hasgamestarted = false;
+boolean hasGameStarted = false;
+boolean hasGameEnded = false;
 
 float timeElapsed = 0;
 float timePaused = 0;
@@ -35,24 +32,21 @@ void setup(){
 
     size(1024, 640);
     frameRate(60);
-    //ima = loadImage("assets/sprites/scene.jpg");
 
     camera = new Camera();
     parser = new Parser();
-    graphism = new Graphism();
+    background = new Background();
     scoreManager = new ScoreManager();
     soundManager = new SoundManager(this);
+    menus = new Menus();
 
-    
+    //Load sounds
     soundManager.load("intro", "assets/sounds/intro.wav");
     soundManager.load("fail", "assets/sounds/fail.wav");
     soundManager.load("man", "assets/sounds/oh_yeah.wav");
     soundManager.load("women", "assets/sounds/yeay.wav");
     soundManager.load("applause", "assets/sounds/yeay.wav");
     soundManager.load("outro", "assets/sounds/yeay.wav");
-    
-    
-
     
     parser.loadSheet("assets/sheet.txt");
 
@@ -64,21 +58,15 @@ void setup(){
     beatInterval = 60 / parser.getBPM();
     noteInterval = beatInterval / beatDivision;
 
-menu = loadImage("assets/sprites/menuBBO.png");
-//bravo = loadImage ("assets/sprites/Bravo.png");
-//fail = loadImage ("assets/sprites/fail.png");
 }
 
 void draw(){
 
-    //timeElapsed = millis() / 1000.0;//Convert to seconds
-    if(hasgamestarted){
+    if(hasGameStarted && !hasGameEnded){
         timeElapsed = (millis() / 1000.0) - timePaused;
     } else {
         timePaused = millis() / 1000.0;
     }
-    
-    //image(ima,0,0);
 
     // if( beatCounter >= parser.lines.length ){
     //     println("reset: " + parser.lines.length);
@@ -121,14 +109,9 @@ void draw(){
 
     clear();
   
-    background(155);
-    //background(36, 22, 45);
-    
-    //image(ima,0,0);
-    graphism.draw();
+    background.draw();
 
     pushMatrix();
-    
     
     camera.draw();
 
@@ -138,8 +121,8 @@ void draw(){
     popMatrix();
 
     scoreManager.draw();
-    
-    if(hasgamestarted == false) image(menu,0,0);
+
+    menus.draw();
 
     //Debug();
 
@@ -155,7 +138,8 @@ void keyPressed(){
     if (key == 'p') {
         tl2.onInputPressed();
     }
-    if (key == ' ') hasgamestarted = true;
+
+    if (key == ' ' && !hasGameStarted) hasGameStarted = true;
 }
 
 void keyReleased(){
@@ -168,9 +152,6 @@ void keyReleased(){
     }
 
 }
-
-//if(score < 400 && timehasended) image(fail,0,0);
-//if(score > 400 && timehasended) image(bravo,0,0);
 
 void Debug(){
 

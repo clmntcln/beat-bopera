@@ -8,6 +8,8 @@ Camera camera;
 Graphism graphism;
 //PImage ima;
 PImage menu;
+//PImage bravo;
+//PImage fail;
 
 
 BeatTimeline tl1;
@@ -41,7 +43,16 @@ void setup(){
     scoreManager = new ScoreManager();
     soundManager = new SoundManager(this);
 
-    soundManager.load("fail", "assets/fail.wav");
+    
+    soundManager.load("intro", "assets/sounds/intro.wav");
+    soundManager.load("fail", "assets/sounds/fail.wav");
+    soundManager.load("man", "assets/sounds/oh_yeah.wav");
+    soundManager.load("women", "assets/sounds/yeay.wav");
+    soundManager.load("applause", "assets/sounds/yeay.wav");
+    soundManager.load("outro", "assets/sounds/yeay.wav");
+    
+    
+
     
     parser.loadSheet("assets/sheet.txt");
 
@@ -54,6 +65,8 @@ void setup(){
     noteInterval = beatInterval / beatDivision;
 
 menu = loadImage("assets/sprites/menuBBO.png");
+//bravo = loadImage ("assets/sprites/Bravo.png");
+//fail = loadImage ("assets/sprites/fail.png");
 }
 
 void draw(){
@@ -155,6 +168,9 @@ void keyReleased(){
     }
 
 }
+
+//if(score < 400 && timehasended) image(fail,0,0);
+//if(score > 400 && timehasended) image(bravo,0,0);
 
 void Debug(){
 

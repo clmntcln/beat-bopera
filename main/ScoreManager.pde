@@ -24,16 +24,34 @@ class ScoreManager{
     }
 
     void draw(){
-        fill(255);
-        rect(0, 0, 100, 50);
-        rect(0, 50, 70, 30);
+        //fill(255);
+        //rect(0, 0, 100, 50);
+        //rect(0, 50, 70, 30);
 
         fill(0);
-        textSize(20);
-        text(score, 15, 33);
+        textSize(40);
+        text(score, 59, 55);
         
-        textSize(16);
-        text("x"+this.multiplier, 15, 70);
+        textSize(22);
+        text("x"+this.multiplier, 40, 103);
+        
+        if(multiplier > 7){
+          fill(126,51,0);
+          textSize(22);
+          text("x"+this.multiplier, 40, 103);
+        }
+        
+        if(multiplier > 15){
+          fill(206);
+          textSize(22);
+          text("x"+this.multiplier, 40, 103);
+        }
+        
+        if(multiplier > 31){
+          fill(255,215,0);
+          textSize(22);
+          text("x"+this.multiplier, 40, 103);
+        }
     }
 
 }

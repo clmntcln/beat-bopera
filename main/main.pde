@@ -5,6 +5,7 @@ ScoreManager scoreManager;
 SoundManager soundManager;
 Parser parser;
 Camera camera;
+PImage ima;
 
 BeatTimeline tl1;
 BeatTimeline tl2;
@@ -26,6 +27,7 @@ void setup(){
 
     size(1024, 640);
     frameRate(60);
+    ima = loadImage("assets/sprites/scene.jpg");
 
     camera = new Camera();
     parser = new Parser();
@@ -49,6 +51,7 @@ void setup(){
 void draw(){
 
     timeElapsed = millis() / 1000.0;//Convert to seconds
+    //image(ima,0,0);
 
     // if( beatCounter >= parser.lines.length ){
     //     println("reset: " + parser.lines.length);
@@ -94,6 +97,8 @@ void draw(){
   
     background(155);
     //background(36, 22, 45);
+    
+    image(ima,0,0);
 
     pushMatrix();
 

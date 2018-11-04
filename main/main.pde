@@ -14,7 +14,6 @@ BeatTimeline tl1;
 BeatTimeline tl2;
 
 boolean hasgamestarted = false;
-  //if hasgamestarted = loadImage("assets/sprites/menuBBO.png");
 
 float timeElapsed = 0;
 int beatCounter = 0;
@@ -54,6 +53,7 @@ void setup(){
     beatInterval = 60 / parser.getBPM();
     noteInterval = beatInterval / beatDivision;
 
+menu = loadImage("assets/sprites/menuBBO.png");
 }
 
 void draw(){
@@ -120,8 +120,11 @@ void draw(){
     popMatrix();
 
     scoreManager.draw();
+    
+    if(hasgamestarted == false) image(menu,0,0);
 
     Debug();
+
 
 }
 

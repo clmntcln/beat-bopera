@@ -13,10 +13,6 @@ class SoundManager{
         this.context = context;
 
         music = new SoundFile(context, "assets/music.wav");
-        //poum = new SoundFile(context, "assets/poum.wav");
-        //tchack = new SoundFile(context, "assets/tchack.wav");
-
-        //Load sounds
         //music.play();
 
     }

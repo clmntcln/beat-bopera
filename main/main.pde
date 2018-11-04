@@ -5,7 +5,8 @@ ScoreManager scoreManager;
 SoundManager soundManager;
 Parser parser;
 Camera camera;
-PImage ima;
+Graphism graphism;
+//PImage ima;
 
 BeatTimeline tl1;
 BeatTimeline tl2;
@@ -27,10 +28,11 @@ void setup(){
 
     size(1024, 640);
     frameRate(60);
-    ima = loadImage("assets/sprites/scene.jpg");
+    //ima = loadImage("assets/sprites/scene.jpg");
 
     camera = new Camera();
     parser = new Parser();
+    graphism = new Graphism();
     scoreManager = new ScoreManager();
     soundManager = new SoundManager(this);
 
@@ -98,10 +100,12 @@ void draw(){
     background(155);
     //background(36, 22, 45);
     
-    image(ima,0,0);
+    //image(ima,0,0);
+    graphism.draw();
 
     pushMatrix();
-
+    
+    
     camera.draw();
 
     tl2.draw();

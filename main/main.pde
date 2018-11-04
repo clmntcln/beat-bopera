@@ -43,7 +43,7 @@ void setup(){
     //Load sounds
     soundManager.load("intro", "assets/sounds/intro.wav");
     soundManager.load("fail", "assets/sounds/fail.wav");
-    soundManager.load("man", "assets/sounds/oh_yeah.wav");
+    soundManager.load("oh_yeah", "assets/sounds/oh_yeah.wav");
     soundManager.load("women", "assets/sounds/yeay.wav");
     soundManager.load("applause", "assets/sounds/yeay.wav");
     soundManager.load("outro", "assets/sounds/yeay.wav");

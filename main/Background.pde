@@ -5,8 +5,9 @@ class Background{
 	CrowdRow[] rows = new CrowdRow[9];
 
     ArrayList<CrowdFeedback> crowdFeedbacks = new ArrayList<CrowdFeedback>();
+    ArrayList<PImage> crowdFeedbackImages = new ArrayList<PImage>();
 
-    float theta = 0;
+    float theta = 0.0;
   
     Background(){
 
@@ -15,12 +16,17 @@ class Background{
         }
     
         scene = loadImage("assets/sprites/scene.jpg");
+
+        crowdFeedbackImages.add(loadImage("assets/sprites/bulles/bien-ouej.png"));
+        crowdFeedbackImages.add(loadImage("assets/sprites/bulles/c-ergo.png"));
+        crowdFeedbackImages.add(loadImage("assets/sprites/bulles/cool.png"));
+        crowdFeedbackImages.add(loadImage("assets/sprites/bulles/quel-flow.png"));
     
     }
   
     void draw(){
 
-        theta += 0.02;
+        theta += 0.2;
     
         image(scene, 0, 0);
 
@@ -32,10 +38,14 @@ class Background{
             // }
         }
 
+        //this.rows[5].pos.y = sin(theta) * 10.0;
+
+        //Draw rows
         for(int i = this.rows.length; i > 0; i--){
             this.rows[i - 1].draw();
         }
 
+        //Draw all feedbacks
         for(int f = 0; f < this.crowdFeedbacks.size(); f++){
             CrowdFeedback fb = crowdFeedbacks.get(f);
             fb.draw();
@@ -45,13 +55,12 @@ class Background{
 
     void addFeedback(){
 
-        crowdFeedbacks.add(new CrowdFeedback("GGS", "applause", 5, new CrowdFeedbackCallback()));
+        crowdFeedbacks.add(new CrowdFeedback(crowdFeedbackImages.get(floor(random(0, crowdFeedbackImages.size() - 1))), "oh_yeah", 3, new CrowdFeedbackCallback()));
 
     }
 
     void removeFirstFeedback(){
 
-        println("Remove first item");
         this.crowdFeedbacks.remove(0);
 
     }
@@ -85,21 +94,21 @@ class CrowdFeedbackCallback implements Callback
 
 class CrowdFeedback extends Timer{
 
-    String content;
+    PImage src;
     String soundName;
-    PVector pos = new PVector(300, 300);
-    float dif = -10;
+    PVector pos = new PVector(0, 0);
+    float dif = -30;
     float incr = 0;
 
-    CrowdFeedback(String content, String soundName, float duration, Callback callback){
+    CrowdFeedback(PImage src, String soundName, float duration, Callback callback){
         super(duration, true, callback);
 
-        this.content = content;
+        this.src = src;
         this.soundName = soundName;
         this.incr = this.dif / this.duration / 60;
 
-        pos.x += random(-10, 10);
-        pos.y += random(-10, 10);
+        // pos.x += random(-50, 50);
+        // pos.y += random(-50, 50);
 
         soundManager.playSound(soundName);
         
@@ -108,9 +117,17 @@ class CrowdFeedback extends Timer{
     void draw(){
 
         this.update();
-        //pos.y += this.incr;
+        pos.y += this.incr;
 
-        text(this.content, this.pos.x, this.pos.y);
+        image(src, this.pos.x, this.pos.y);
+
+        // fill(0);
+        // textSize(44);
+        // textAlign(CENTER);
+        // text(this.content, this.pos.x, this.pos.y);
+        // fill(255);
+        // textSize(40);
+        // text(this.content, this.pos.x, this.pos.y);
 
     }
 

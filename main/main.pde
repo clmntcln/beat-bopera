@@ -52,7 +52,8 @@ void setup(){
 
 void draw(){
 
-    timeElapsed = millis() / 1000.0;//Convert to seconds
+    //timeElapsed = millis() / 1000.0;//Convert to seconds
+    timeElapsed += 1/60;
     //image(ima,0,0);
 
     // if( beatCounter >= parser.lines.length ){
@@ -60,7 +61,6 @@ void draw(){
     //     beatCounter = 1;
     //     timeElapsed = 0;
     // }
-
 
     //Si une ligne existe pour le beat actuel dans la partition && que suffisamment de temps s'est écoulé depuis le dernier beat
     if(noteCounter < parser.lines.length && timeElapsed > (noteCounter * noteInterval)){

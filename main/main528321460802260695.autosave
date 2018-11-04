@@ -5,8 +5,8 @@ ScoreManager scoreManager;
 SoundManager soundManager;
 Parser parser;
 Camera camera;
-Graphism graphism;
-//PImage ima;
+PImage ima;
+PImage menu;
 
 BeatTimeline tl1;
 BeatTimeline tl2;
@@ -24,15 +24,17 @@ float delay = 1.5;
 color c1 = color(225, 30, 44);
 color c2 = color(218, 225, 30);
 
+boolean hasgamestarted = false;
+
 void setup(){
 
     size(1024, 640);
     frameRate(60);
-    //ima = loadImage("assets/sprites/scene.jpg");
+    ima = loadImage("assets/sprites/scene.jpg");
+    menu = loadImage("assets/sprites/menuBBO.png");
 
     camera = new Camera();
     parser = new Parser();
-    graphism = new Graphism();
     scoreManager = new ScoreManager();
     soundManager = new SoundManager(this);
 
@@ -100,12 +102,10 @@ void draw(){
     background(155);
     //background(36, 22, 45);
     
-    //image(ima,0,0);
-    graphism.draw();
+    image(ima,0,0);
 
     pushMatrix();
-    
-    
+
     camera.draw();
 
     tl2.draw();
@@ -114,7 +114,10 @@ void draw(){
     popMatrix();
 
     scoreManager.draw();
-
+    
+//menu
+if (hasgamestarted == false) image(menu,0,0);
+   
     Debug();
 
 }
@@ -128,7 +131,13 @@ void keyPressed(){
     if (key == 'p') {
         tl2.onInputPressed();
     }
-
+   if (key == ' '){
+      hasgamestarted = true; 
+    }
+    
+   if (hasgamestarted = true){
+      clear();
+   }
 }
 
 void keyReleased(){
@@ -148,5 +157,10 @@ void Debug(){
 
     //text("Time elapsed:" + timeElapsed, 0, 10);
     //text("Beat Interval:" + beatInterval, 0, 20);
-    text("Note counter:" + noteCounter, 10, height - 30);
+    text("Beat counter:" + beatCounter, 0, height - 30);
+}
+
+boolean IsPowerOfTwo(int x)
+{
+    return (x != 0) && ((x & (x - 1)) == 0);
 }

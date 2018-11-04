@@ -7,9 +7,14 @@ Parser parser;
 Camera camera;
 Graphism graphism;
 //PImage ima;
+PImage menu;
+
 
 BeatTimeline tl1;
 BeatTimeline tl2;
+
+boolean hasgamestarted = false;
+  //if hasgamestarted = loadImage("assets/sprites/menuBBO.png");
 
 float timeElapsed = 0;
 int beatCounter = 0;
@@ -30,6 +35,7 @@ void setup(){
     frameRate(60);
     //ima = loadImage("assets/sprites/scene.jpg");
 
+
     camera = new Camera();
     parser = new Parser();
     graphism = new Graphism();
@@ -42,8 +48,8 @@ void setup(){
 
     float speed = (height / delay) / 60;
 
-    tl1 = new BeatTimeline(0, (width/2) + 90, 0, 80, speed, "bass_drum", "assets/sounds/bass_drum_1_short.wav", c1);
-    tl2 = new BeatTimeline(0, (width/2) + 220, 0, 80, speed, "snare", "assets/sounds/snare_1_short.wav", c2);
+    tl1 = new BeatTimeline(0, (width/2) + 90, 0, 80, speed, "bass_drum", "assets/sounds/bass_drum_1_short.wav", c1, "woman");
+    tl2 = new BeatTimeline(0, (width/2) + 220, 0, 80, speed, "snare", "assets/sounds/snare_1_short.wav", c2, "man");
 
     beatInterval = 60 / parser.getBPM();
     noteInterval = beatInterval / beatDivision;
@@ -128,7 +134,7 @@ void keyPressed(){
     if (key == 'p') {
         tl2.onInputPressed();
     }
-
+    if (key == ' ') hasgamestarted = true;
 }
 
 void keyReleased(){

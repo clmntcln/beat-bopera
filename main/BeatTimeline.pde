@@ -18,13 +18,11 @@ class BeatTimeline{
 
     PImage playerIdle;
     PImage playerActive;
-    PImage playerIdle2;
-    PImage playerActive2;
 
     float zoneStart = height - 154;
     float zoneH = 100;
 
-    BeatTimeline(int givenId, float x, float y, int givenWidth, float givenSpeed, String soundName, String soundPath, color noteColor){
+    BeatTimeline(int givenId, float x, float y, int givenWidth, float givenSpeed, String soundName, String soundPath, color noteColor, String folder){
 
         this.id = givenId;
         this.pos = new PVector(x, y);
@@ -38,12 +36,9 @@ class BeatTimeline{
 
         soundManager.load(soundName, soundPath);
 
-        playerIdle = loadImage("assets/sprites/woman-idle-ph.png");
-        playerActive = loadImage("assets/sprites/woman-active-ph.png");
-        
-        playerIdle2 = loadImage("assets/sprites/man-idle-ph.png");
-        playerActive2 = loadImage("assets/sprites/man-active-ph.png");
-
+        playerIdle = loadImage("assets/sprites/" + folder + "/idle-ph.png");
+        playerActive = loadImage("assets/sprites/" + folder + "/active-ph.png");
+       
     }
 
     void spawnNote(){
@@ -99,11 +94,7 @@ class BeatTimeline{
         } else{
             image(playerIdle, pos.x - 48, height - 162, 162, 162);
         }
-           if(inputPressed){
-            image(playerActive2, pos.x - 48, height - 162, 162, 162);
-        } else{
-            image(playerIdle2, pos.x - 48, height - 162, 162, 162);
-        }
+   
         strokeWeight(0);
 
         fill(255, 255, 255, 150);

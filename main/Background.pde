@@ -12,7 +12,7 @@ class Background{
     Background(){
 
         for(int i = 0; i < 9; i++){
-            rows[i] = new CrowdRow("assets/sprites/public/" + (i + 1) + ".png");
+            rows[i] = new CrowdRow("assets/sprites/public/" + (i + 1) + ".png", 0, height - ((i + 1) * 25));
         }
     
         scene = loadImage("assets/sprites/scene.jpg");
@@ -30,15 +30,25 @@ class Background{
     
         image(scene, 0, 0);
 
-        if(scoreManager.multiplier < 7) {
+        if(scoreManager.multiplier > 7) {
+
+            float dRow = theta;
+            for(int i = (this.rows.length - 1); i > 0; i--){
+                this.rows[i].pos.y = this.rows[i].origin.y + sin(dRow) * 2.0;
+                dRow += i;
+            }
             
-        } else {
-            // for(int i = this.rows.length; i > 0; i--){
-            //     this.rows[i - 1].pos.y = 0;
-            // }
+        } else if(scoreManager.multiplier > 3) {
+            
+            float dRow = theta;
+            for(int i = (this.rows.length - 1); i > 0; i--){
+                this.rows[i].pos.y = this.rows[i].origin.y + sin(dRow) * 1.0;
+                dRow += i;
+            }
+
         }
 
-        //this.rows[5].pos.y = sin(theta) * 10.0;
+        
 
         //Draw rows
         for(int i = this.rows.length; i > 0; i--){
@@ -69,11 +79,14 @@ class Background{
 
 class CrowdRow{
 
+    PVector origin = new PVector(0, 0);
     PVector pos = new PVector(0, 0);
     PImage src;
 
-    CrowdRow(String srcPath){
+    CrowdRow(String srcPath, float originX, float originY){
         this.src = loadImage(srcPath);
+        origin.x = pos.x = originX;
+        origin.y = pos.y = originY;
     }
 
     void draw(){
@@ -119,7 +132,7 @@ class CrowdFeedback extends Timer{
         this.update();
         pos.y += this.incr;
 
-        image(src, this.pos.x, this.pos.y);
+        //image(src, this.pos.x, this.pos.y);
 
     }
 

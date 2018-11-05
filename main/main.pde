@@ -11,7 +11,7 @@ Menus menus;
 BeatTimeline tl1;
 BeatTimeline tl2;
 
-boolean hasGameStarted = false;
+boolean playing = false;
 boolean hasGameEnded = false;
 
 float timeElapsed = 0;
@@ -24,6 +24,8 @@ float beatDivision = 4;
 
 //Temps de délais donné au joueur entre l'apparition de la note et le moment où elle doit être appuyée
 float delay = 1.5;
+
+Timer endGameTimer;
 
 color c1 = color(225, 30, 44);
 color c2 = color(218, 225, 30);
@@ -41,12 +43,14 @@ void setup(){
     menus = new Menus();
 
     //Load sounds
+    soundManager.load("music", "assets/music.wav");
     soundManager.load("intro", "assets/sounds/intro.wav");
     soundManager.load("fail", "assets/sounds/fail.wav");
+    soundManager.load("applause", "assets/sounds/applause.wav");
     soundManager.load("oh_yeah", "assets/sounds/oh_yeah.wav");
     soundManager.load("women", "assets/sounds/yeay.wav");
     soundManager.load("applause", "assets/sounds/yeay.wav");
-    soundManager.load("outro", "assets/sounds/yeay.wav");
+    soundManager.load("outro", "assets/sounds/outro.wav");
     
     parser.loadSheet("assets/sheet.txt");
 
@@ -58,24 +62,22 @@ void setup(){
     beatInterval = 60 / parser.getBPM();
     noteInterval = beatInterval / beatDivision;
 
+    endGameTimer = new Timer(delay + 1.0, false, new OnGameEnded());
+
+    soundManager.loopSound("intro");
+
 }
 
 void draw(){
 
-    if(hasGameStarted && !hasGameEnded){
+    if(playing){
         timeElapsed = (millis() / 1000.0) - timePaused;
     } else {
         timePaused = millis() / 1000.0;
     }
 
-    // if( beatCounter >= parser.lines.length ){
-    //     println("reset: " + parser.lines.length);
-    //     beatCounter = 1;
-    //     timeElapsed = 0;
-    // }
-
     //Si une ligne existe pour le beat actuel dans la partition && que suffisamment de temps s'est écoulé depuis le dernier beat
-    if(noteCounter < parser.lines.length && timeElapsed > (noteCounter * noteInterval)){
+    if(playing && noteCounter < parser.lines.length && timeElapsed > (noteCounter * noteInterval)){
 
         //TODO : Ignorer la première ligne du fichier
 
@@ -95,17 +97,14 @@ void draw(){
 
     }
 
-    // if(timeElapsed > (noteCounter * noteInterval)){
+    //End condition
+    if(playing && noteCounter == parser.lines.length){
+        //Start timer to endGame
+        endGame();
+    }
 
-    //     tl1.spawnNote();
+    endGameTimer.update();
 
-    //     noteCounter++;
-
-    //     //if(noteCounter % beatDivision)
-
-    //     println(noteCounter % beatDivision);
-
-    // }
 
     clear();
   
@@ -129,6 +128,27 @@ void draw(){
 
 }
 
+void startGame(){
+    playing = true;
+    soundManager.stopSound("intro");
+    soundManager.playSound("music");
+}
+
+void endGame(){
+    println("End Game");
+    hasGameEnded = true;
+    playing = false;
+    endGameTimer.start();
+}
+
+class OnGameEnded implements Callback{
+    @Override
+    void call(){
+        println("OnGameEnded");
+        menus.showOutro();
+    }
+}
+
 //Event touche appuyée
 void keyPressed(){
 
@@ -139,7 +159,7 @@ void keyPressed(){
         tl2.onInputPressed();
     }
 
-    if (key == ' ' && !hasGameStarted) hasGameStarted = true;
+    if (key == ' ' && !playing) startGame();
 }
 
 void keyReleased(){
@@ -157,7 +177,7 @@ void Debug(){
 
     fill(255);
 
-    text("Time elapsed:" + timeElapsed, 10, height - 50);
+    text("Time elapsed:" + timeElapsed, 10, height - 60);
     //text("Beat Interval:" + beatInterval, 0, 20);
     text("Note counter:" + noteCounter, 10, height - 30);
 }

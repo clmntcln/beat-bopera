@@ -25,11 +25,35 @@ class SoundManager{
 
     }
 
+    void setSoundVolume(String soundName, float value){
+
+        SoundFile sound = soundsList.get(soundName);
+
+        sound.amp(value);
+
+    }
+
     void playSound(String soundName){
 
         SoundFile sound = soundsList.get(soundName);
 
         sound.play();
+
+    }
+
+    void loopSound(String soundName){
+
+        SoundFile sound = soundsList.get(soundName);
+
+        sound.loop();
+
+    }
+
+    void stopSound(String soundName){
+
+        SoundFile sound = soundsList.get(soundName);
+
+        sound.stop();
 
     }
 

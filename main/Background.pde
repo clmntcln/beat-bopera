@@ -121,14 +121,6 @@ class CrowdFeedback extends Timer{
 
         image(src, this.pos.x, this.pos.y);
 
-        // fill(0);
-        // textSize(44);
-        // textAlign(CENTER);
-        // text(this.content, this.pos.x, this.pos.y);
-        // fill(255);
-        // textSize(40);
-        // text(this.content, this.pos.x, this.pos.y);
-
     }
 
 }

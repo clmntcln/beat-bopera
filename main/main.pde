@@ -130,6 +130,7 @@ void draw(){
 void startGame(){
     playing = true;
     soundManager.stopSound("intro");
+    soundManager.setVolume("music", 0.3);
     soundManager.playSound("music");
 }
 

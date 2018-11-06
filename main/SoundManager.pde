@@ -25,7 +25,7 @@ class SoundManager{
 
     }
 
-    void setSoundVolume(String soundName, float value){
+    void setVolume(String soundName, float value){
 
         SoundFile sound = soundsList.get(soundName);
 

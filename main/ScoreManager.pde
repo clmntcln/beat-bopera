@@ -33,10 +33,12 @@ class ScoreManager{
     void draw(){
 
         fill(0);
+        textAlign(RIGHT);
         textSize(40);
-        text(score, 59, 55);
+        text(score, 170, 55);
         
         textSize(22);
+        textAlign(LEFT);
         
         if(multiplier > 7){
             fill(126,51,0);
@@ -46,7 +48,7 @@ class ScoreManager{
             fill(255,215,0);
         }
         
-        text("x"+this.multiplier, 40, 103);
+        text("x"+this.multiplier, 25, 103);
     }
 
 }

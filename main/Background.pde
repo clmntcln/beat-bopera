@@ -42,7 +42,7 @@ class Background{
             
             float dRow = theta;
             for(int i = 5; i > -1; i--){
-                this.rows[i].pos.y = this.rows[i].origin.y + sin(dRow) * 5.0;
+                this.rows[i].pos.y = this.rows[i].origin.y + sin(dRow) * 4.0;
                 dRow += i;
             }
 
@@ -50,13 +50,13 @@ class Background{
             
             float dRow = theta;
             for(int i = 2; i > -1; i--){
-                this.rows[i].pos.y = this.rows[i].origin.y + sin(dRow) * 5.0;
+                this.rows[i].pos.y = this.rows[i].origin.y + sin(dRow) * 4.0;
                 dRow += i;
             }
 
         } else if(scoreManager.multiplier > 3) {
             
-            this.rows[0].pos.y = this.rows[0].origin.y + sin(theta) * 5.0;
+            this.rows[0].pos.y = this.rows[0].origin.y + sin(theta) * 4.0;
 
         }
 

@@ -31,6 +31,7 @@ class Menus{
 
     void showOutro(){
         outroShown = true;
+        soundManager.playSound("applause");
         soundManager.stopSound("music");
         soundManager.loopSound("outro");
     }

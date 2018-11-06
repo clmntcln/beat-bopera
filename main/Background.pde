@@ -30,21 +30,33 @@ class Background{
     
         image(scene, 0, 0);
 
-        if(scoreManager.multiplier > 7) {
+        if(scoreManager.multiplier > 31) {
 
             float dRow = theta;
-            for(int i = (this.rows.length - 1); i > 0; i--){
-                this.rows[i].pos.y = this.rows[i].origin.y + sin(dRow) * 2.0;
+            for(int i = 8; i > -1; i--){
+                this.rows[i].pos.y = this.rows[i].origin.y + sin(dRow) * 5.0;
                 dRow += i;
             }
             
-        } else if(scoreManager.multiplier > 3) {
+        } else if(scoreManager.multiplier > 15) {
             
             float dRow = theta;
-            for(int i = (this.rows.length - 1); i > 0; i--){
-                this.rows[i].pos.y = this.rows[i].origin.y + sin(dRow) * 1.0;
+            for(int i = 5; i > -1; i--){
+                this.rows[i].pos.y = this.rows[i].origin.y + sin(dRow) * 5.0;
                 dRow += i;
             }
+
+        } else if(scoreManager.multiplier > 7) {
+            
+            float dRow = theta;
+            for(int i = 2; i > -1; i--){
+                this.rows[i].pos.y = this.rows[i].origin.y + sin(dRow) * 5.0;
+                dRow += i;
+            }
+
+        } else if(scoreManager.multiplier > 3) {
+            
+            this.rows[0].pos.y = this.rows[0].origin.y + sin(theta) * 5.0;
 
         }
 
@@ -65,7 +77,18 @@ class Background{
 
     void addFeedback(){
 
-        crowdFeedbacks.add(new CrowdFeedback(crowdFeedbackImages.get(floor(random(0, crowdFeedbackImages.size() - 1))), "oh_yeah", 3, new CrowdFeedbackCallback()));
+        String soundName = "";
+
+        switch(floor(random(0, 1.5))){
+            case 0:
+                soundName = "oh_yeah";
+                break;
+            case 1:
+                soundName = "yeay";
+                break;
+        }
+
+        crowdFeedbacks.add(new CrowdFeedback(crowdFeedbackImages.get(floor(random(0, crowdFeedbackImages.size() - 1))), soundName, 1.5, new CrowdFeedbackCallback()));
 
     }
 
@@ -109,7 +132,7 @@ class CrowdFeedback extends Timer{
 
     PImage src;
     String soundName;
-    PVector pos = new PVector(0, 0);
+    PVector pos = new PVector(250, 375);
     float dif = -30;
     float incr = 0;
 
@@ -120,8 +143,8 @@ class CrowdFeedback extends Timer{
         this.soundName = soundName;
         this.incr = this.dif / this.duration / 60;
 
-        // pos.x += random(-50, 50);
-        // pos.y += random(-50, 50);
+        pos.x += random(-150, 150);
+        pos.y += random(-50, 50);
 
         soundManager.playSound(soundName);
         
@@ -132,7 +155,7 @@ class CrowdFeedback extends Timer{
         this.update();
         pos.y += this.incr;
 
-        //image(src, this.pos.x, this.pos.y);
+        image(src, this.pos.x, this.pos.y);
 
     }
 

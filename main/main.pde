@@ -48,8 +48,7 @@ void setup(){
     soundManager.load("fail", "assets/sounds/fail.wav");
     soundManager.load("applause", "assets/sounds/applause.wav");
     soundManager.load("oh_yeah", "assets/sounds/oh_yeah.wav");
-    soundManager.load("women", "assets/sounds/yeay.wav");
-    soundManager.load("applause", "assets/sounds/yeay.wav");
+    soundManager.load("yeay", "assets/sounds/yeay.wav");
     soundManager.load("outro", "assets/sounds/outro.wav");
     
     parser.loadSheet("assets/sheet.txt");
@@ -138,6 +137,7 @@ void endGame(){
     println("End Game");
     hasGameEnded = true;
     playing = false;
+
     endGameTimer.start();
 }
 
